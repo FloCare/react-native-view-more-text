@@ -128,7 +128,9 @@ class ViewMoreText extends React.Component {
       numberOfLines,
     } = this.state;
 
-    if (this.shouldShowMore === true) {
+    if (this.props.alwaysShowMore === true) {
+    	return (this.props.renderViewMore || this.renderViewMore)(this.onPressMore);
+    } else if (this.shouldShowMore === true) {
       if (numberOfLines > 0) {
         return (this.props.renderViewMore || this.renderViewMore)(this.onPressMore);
       }
@@ -166,12 +168,14 @@ ViewMoreText.propTypes = {
   afterExpand: PropTypes.func,
   numberOfLines: PropTypes.number.isRequired,
   textStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  alwaysShowMore: PropTypes.bool,
 };
 
 ViewMoreText.defaultProps = {
   afterCollapse: () => {},
   afterExpand: () => {},
   textStyle: {},
+  alwaysShowMore: false
 };
 
 export default ViewMoreText;
